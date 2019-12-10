@@ -3,7 +3,7 @@
 #include "TextLCD.h"
 #include "motordriver.h"
 
-//TextLCD lcd(D2, D3, D4, D5, D6, D7); // rs, e, d4-d7
+  TextLCD lcd(D2, D3, D4, D5, D6, D7); // rs, e, d4-d7
 //enable, fwd, rev
 Motor A(D10, D8, D9, 1); //left
 Motor B(D12, D14, D15, 1); //right

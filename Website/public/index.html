@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title></title>
+    <!--<link rel="icon" type="image/png" href="img/favicon.png" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    </head>
+
+<body>
+    
+    <!-- <div id="blockly" style="height: 480px; width: 600px;"></div>
+
+    <xml id="toolbox" style="display: none">
+        <category name="Others">
+            <block type="controls_if"></block>
+            <block type="controls_repeat_ext"></block>
+            <block type="logic_compare"></block>
+            <block type="math_number"></block>
+            <block type="math_arithmetic"></block>
+        </category>
+        <category name="Text">
+            <block type="text"></block>
+            <block type="text_print"></block>
+            <block type="string_length"></block>
+        </category>
+    </xml> -->
+
+    <main>
+        <!-- Response from Buggy -->
+        <p>
+            <strong>Response: </strong>
+            <span id="response">No Connection</span>
+        </p>
+        <!-- Test Connection to Buggy -->
+        <input id="ip" />
+        <button onclick="send('Test')">Connect</button>
+        <!-- One off movement commands -->
+        <div>
+            <button onclick="send('FWD')">FWD</button>
+            <button onclick="send('REV')">REV</button>
+            <button onclick="send('LFT')">LFT</button>
+            <button onclick="send('FGT')">RGT</button>
+            <button onclick="send('STP')">STP</button>
+        </div>
+        <!-- Send string to the LCD -->
+        <div>
+            <input max="16" id="lcd" placeholder="LCD Printout" />
+            <button id="lcdsend">Send</button>
+        </div>
+        <!-- 5 command loop to the buggy -->
+        <table id="table">
+            <tr>
+                <th>Command</th>
+                <th>Time (in seconds)</th>
+            </tr>
+            <!-- Generates the elements in JS -->
+        </table>
+        <button id="loopsend">Send</button>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="assets/blockly/blockly_compressed.js"></script>
+    <script src="assets/blockly/blocks_compressed.js"></script>
+    <script src="assets/blockly/javascript_compressed.js"></script>
+    <script src="assets/blockly/msg/js/en-gb.js"></script>
+    <script src="assets/js/index.js"></script>
+</body>
+
+</html>
