@@ -1,0 +1,75 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.12.10 01:59:17 =~=~=~=~=~=~=~=~=~=~=~=
+AT
+
+OK
+AT+CWMODE=1
+
+OK
+AT+CIFSR
++CIFSR:STAIP,"192.168.137.103"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+AT+CIPMUX=1
+
+OK
+AT+CIPSERVER=1,80
+
+OK
+0,CONNECT
+1,CONNECT
+
++IPD,0,425:GET / HTTP/1.1
+Host: 192.168.137.103
+Connection: keep-alive
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,5
+
+OK
+> 
+Recv 5 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+1,CLOSED
+0,CONNECT
+
++IPD,0,361:GET /favicon.ico HTTP/1.1
+Host: 192.168.137.103
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: image/webp,image/apng,image/*,*/*;q=0.8
+Referer: http://192.168.137.103/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,21:ÿûÿû ÿûÿû'ÿýÿûÿý
++IPD,0,5:HELLO
++IPD,0,2:
+AT+CIPSEND=0,5
+
+OK
+> 
+Recv 5 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
