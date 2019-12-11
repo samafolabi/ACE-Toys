@@ -1,0 +1,40 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none">
+  <variables>
+    <variable id=",`Se}R:x{h}26C=JhQgY">ip_addr</variable>
+    <variable id="Hj`VbjH7X#`b3P`3=F4l">lcd_text</variable>
+  </variables>
+  <block type="procedures_defnoreturn" id="z|ja-1,P^9K68O8?reT[" x="33" y="-7">
+    <field name="NAME">do something</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="Al{xY5wAK^)sCjcmSBFw">
+        <field name="VAR" id=",`Se}R:x{h}26C=JhQgY">ip_addr</field>
+        <value name="VALUE">
+          <block type="text" id="%vNIP-t}+U]rWr16qP0e">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="c-@xhcJ!U,/@m:Xo|3sa">
+            <field name="VAR" id="Hj`VbjH7X#`b3P`3=F4l">lcd_text</field>
+            <value name="VALUE">
+              <block type="text" id="-D|GtLu}OnS^L4fXXX*2">
+                <field name="TEXT"></field>
+              </block>
+            </value>
+            <next>
+              <block type="controls_whileUntil" id="S#q1_Gw){n8GF23!rbGC">
+                <field name="MODE">WHILE</field>
+                <value name="BOOL">
+                  <block type="logic_boolean" id="t92l%W@eh9vEil-GNnQ;">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

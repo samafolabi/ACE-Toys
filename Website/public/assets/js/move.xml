@@ -1,0 +1,74 @@
+<xml xmlns="https://developers.google.com/blockly/xml"><block type="factory_base" id="cFEJ7H=N=Jt=`^lwuVS0" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"/>
+    <field name="NAME">move</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="/sHG#_QnQF$,sL8*yJOX">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="gKCXg/Ieeur15DMK?C{t">
+            <field name="TEXT">move</field>
+            <next>
+              <block type="field_dropdown" id="-0sj2Ekwn/XvaQ!Fj0L0">
+                <mutation options="[&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;,&quot;text&quot;]"/>
+                <field name="FIELDNAME">direction</field>
+                <field name="USER0">forward</field>
+                <field name="CPU0">FWD</field>
+                <field name="USER1">backward</field>
+                <field name="CPU1">REV</field>
+                <field name="USER2">left</field>
+                <field name="CPU2">LFT</field>
+                <field name="USER3">right</field>
+                <field name="CPU3">RGT</field>
+                <field name="USER4">stop</field>
+                <field name="CPU4">STP</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="input_value" id="xoqk2gVzCS#c30|ND*%h">
+            <field name="INPUTNAME">time</field>
+            <field name="ALIGN">CENTRE</field>
+            <value name="TYPE">
+              <shadow type="type_null" id="!S98,|Kg8+M(w=r@v[tV"/>
+              <block type="type_number" id="a5Rqk3d;z=U~AqwcUCf."/>
+            </value>
+            <next>
+              <block type="input_dummy" id="OMZUkVP$Glo6*!E:gm0P">
+                <field name="ALIGN">LEFT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="}]G%250,i?QHE(:VP.g5">
+                    <field name="TEXT">seconds</field>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="|zvi/TIZ-{:A[U5=g](I" deletable="false" movable="false">
+        <field name="TEXT">Move a particular direction or not at all</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="}{Oj]IFPFTH#God6xNTv" deletable="false" movable="false">
+        <field name="TEXT"/>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="mdWH2DT.9$6E0]NGq!3p"/>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="hbUXNfV-p$7Q_}.SV$J."/>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="u)zaUYC-fhF3*~1K[/P$">
+        <mutation colour="#5b67a5"/>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block></xml>
