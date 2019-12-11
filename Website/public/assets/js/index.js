@@ -107,8 +107,7 @@ Blockly.JavaScript['move'] = function(block) {
   workspace.registerButtonCallback("myLFT", function(){send("LFT");})
   workspace.registerButtonCallback("myRGT", function(){send("RGT");})
   workspace.registerButtonCallback("mySTP", function(){send("STP");})
-  workspace.registerButtonCallback("myConnect", function(){send("Test");})
-  //workspace.registerButtonCallback("myPrint", function(){send("LCD_");})
+  workspace.registerButtonCallback("myConnect", function(){connect();})
 var cde;
   function myUpdateFunction(event) {
     cde = Blockly.JavaScript.workspaceToCode(workspace);
@@ -152,7 +151,7 @@ var builder = "";
 
 Blockly.JavaScript['end'] = function(block) {
     // TODO: Assemble JavaScript into code variable.
-    var code = 'send("Test");\n';
+    var code = 'end();\n';
     return code;
   };
 
@@ -164,14 +163,32 @@ function end() {
     alert(builder);
 }
 
+function connect() {
+    var addr = cde.substr(cde.indexOf("ip_addr = '")+11);
+    addr = addr.substr(0,addr.indexOf("'"));
+
+    if (addr != ""){set_ip(addr);send('Test');}
+}
+
+function lcd_print() {
+    var text = cde.substr(cde.indexOf("lcd_text = '")+12);
+    text = text.substr(0,text.indexOf("'"));
+
+    if (text != ""){
+        text = text.length > 16 ? text.substr(0,16) : text;
+        send('LCD_'+text);
+    }
+}
+
 var connected = false;
+var ip = "";
 
 document.getElementById("update").onclick = function () {
-    try {
-        eval(cde);
-      } catch (e) {
-        alert(e);
-      }
+    lcd_print();
+}
+
+function set_ip(addr = "") {
+    ip = addr != "" ? addr : $("#ip").val();
 }
 
 function send(cmd) {
@@ -183,7 +200,7 @@ function send(cmd) {
                 $("#response").html(this.responseText);
             }
         };
-        xhttp.open("POST", "http://"+$("#ip").val(), true);
+        xhttp.open("POST", "http://"+ip, true);
         xhttp.send("ACE-Break__\n"+cmd+"\n");
     } else {alert("Not Connected yet");}
 }
