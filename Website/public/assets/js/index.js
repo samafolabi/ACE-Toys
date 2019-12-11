@@ -33,7 +33,7 @@ $(document).ready(function(){
     }
 
     $("#lcdsend").click(function(){
-        send($("#lcd").val());
+        send("LCD_"+$("#lcd").val());
         $("#lcd").val("");
     });
 
@@ -53,7 +53,8 @@ $(document).ready(function(){
 var connected = false;
 
 function send(cmd) {
-    if (connected | cmd == 'Test') {
+    if (cmd == 'Test') {connected = true;}
+    if (connected) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
