@@ -1,0 +1,887 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.12.10 17:05:17 =~=~=~=~=~=~=~=~=~=~=~=
+AT
+
+OK
+AT+CIFSR
++CIFSR:STAIP,"0.0.0.0"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+AT+CWMODE=1
+
+OK
+WIFI CONNECTED
+at
+
+OK
+AT+CIFSRDHCP TIMEOUT
+WIFI DISCONNECT
+
++CIFSR:STAIP,"0.0.0.0"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+WIFI CONNECTED
+AT+CWLAP
++CWLAP:(0,"stagecoach-wifi",-73,"04:f0:21:18:34:89",1,-24,0)
++CWLAP:(5,"eduroam",-87,"e0:0e:da:7f:22:30",11,32767,0)
++CWLAP:(3,"Test-ACE",-36,"76:6e:69:f5:d6:95",11,-4,0)
++CWLAP:(0,"Glide",-69,"04:da:d2:9c:1a:b0",11,32767,0)
++CWLAP:(3,"HS_Discovery Heights",-69,"04:da:d2:9c:1a:b1",11,32767,0)
++CWLAP:(0,"Guest Wifi UoP",-84,"e0:0e:da:7f:22:33",11,32767,0)
+
+OK
+WIFI GOT IP
+AT+CIFSR
++CIFSR:STAIP,"192.168.137.250"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+AT+CIFSR
++CIFSR:STAIP,"192.168.137.250"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+AT+CIPMUX=1
+
+OK
+AT+CIPSERVER=1,80
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=1,5
+link is not valid
+
+ERROR
+AT+CIPSEND,05
+
+ERROR
+AT+CIPSEND=0,5
+
+OK
+> 
+Recv 5 bytes
+
+SEND OK
+AT+CIPCLOSE
+MUX=1
+
+ERROR
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,36
+
+OK
+> 
+Recv 36 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+0,CLOSED
+gg en blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resoc
+ERROR
+AT+
+
+ERROR
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,104
+
+OK
+> 
+Recv 104 bytes
+m
+busy s...
+n
+busy s...
+c
+busy s...
+k
+busy s...
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,104
+
+OK
+> 
+Recv 104 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT_CIPSEND=0,77
+
+ERROR
+AT+CIPSEND=0,77
+
+OK
+> 
+Recv 77 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,109
+
+OK
+> 
+Recv 109 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,104
+
+OK
+> orld!
+busy s...
+
+Recv 104 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,104
+
+OK
+> ,3E/ sy.e 4ysHPH.0eby.u .
+
+ss.eby.u .
+
+ss.by.u .
+
+ss. by.u .
+
+ss.oby.u .
+
+ss.5by.u .
+
+ss.rby.u .
+
+ss.Mby.u .
+
+ss..by.u .
+
+ss.
+busy s...
+N
+busy s...
+1
+busy s...
+0
+busy s...
+W
+busy s...
+6
+busy s...
+ 
+busy s...
+4
+busy s...
+A
+busy s...
+l
+busy s...
+e
+busy s...
+i
+busy s...
+5
+busy s...
+.
+busy s...
+ 
+busy s...
+H
+busy s...
+L
+busy s...
+l
+busy s...
+e
+busy s...
+e
+busy s...
+o
+busy s...
+C
+busy s...
+o
+busy s...
+/
+busy s...
+.
+busy s...
+3
+busy s...
+4
+busy s...
+0
+busy s...
+S
+busy s...
+a
+busy s...
+/
+busy s...
+7
+busy s...
+6
+busy s...
+D
+busy s...
+:
+busy s...
+
+busy s...
+c
+busy s...
+p
+busy s...
+ 
+busy s...
+*
+busy s...
+R
+busy s...
+e
+busy s...
+r
+busy s...
+h
+busy s...
+p
+busy s...
+/
+busy s...
+c
+busy s...
+h
+busy s...
+t
+busy s...
+0
+busy s...
+/
+busy s...
+A
+busy s...
+e
+busy s...
+-
+busy s...
+c
+busy s...
+i
+busy s...
+:
+busy s...
+z
+busy s...
+,
+busy s...
+e
+busy s...
+a
+busy s...
+
+busy s...
+c
+busy s...
+p
+busy s...
+L
+busy s...
+g
+busy s...
+g
+busy s...
+ 
+busy s...
+-
+busy s...
+,
+busy s...
+;
+busy s...
+0
+busy s...
+
+busy s...
+
+busy s...
++
+busy s...
+P
+busy s...
+N
+busy s...
+0
+busy s...
+0
+busy s...
+
+busy s...
+
+busy s...
+
+busy s...
+ 
+busy s...
+l
+busy s...
+
+busy s...
+u
+busy s...
+ 
+busy s...
+.
+busy s...
+
+busy s...
+R
+busy s...
+v
+busy s...
+0
+busy s...
+b
+busy s...
+e
+busy s...
+
+busy s...
+S
+busy s...
+D
+busy s...
+K
+busy s...
+A
+busy s...
+C
+busy s...
+C
+busy s...
+S
+busy s...
+0
+busy s...
+
+busy s...
+C
+busy s...
+S
+busy s...
+
+busy s...
+
+busy s...
+
+busy s...
+
+SEND OK
+AT+CLOSE
+
+ERROR
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+at+CIPSEND=0,104
+
+OK
+> 
+Recv 104 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,344:GET / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+AT+CIPSEND=0,104
+
+OK
+> 
+Recv 104 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,104
+
+OK
+> 
+Recv 104 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,92
+
+OK
+> 
+Recv 92 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+AT+CIPC
+
+ERROR
+AT+CIPSEND=0,14
+link is not valid
+
+ERROR
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,253
+
+OK
+> 
+Recv 253 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,284
+
+OK
+> 
+Recv 284 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+
+ ets Jan  8 2013,rst cause:2, boot mode:(3,6)
+
+load 0x40100000, len 27728, room 16 
+tail 0
+chksum 0x2a
+load 0x3ffe8000, len 2124, room 8 
+tail 4
+chksum 0x07
+load 0x3ffe8850, len 9276, room 4 
+tail 8
+chksum 0xba
+csum 0xba
+
+ ets Jan  8 2013,rst cause:4, boot mode:(3,6)
+
+wdt reset
+load 0x40100000, len 27728, room 16 
+tail 0
+chksum 0x2a
+load 0x3ffe8000, len 2124, room 8 
+tail 4
+chksum 0x07
+load 0x3ffe8850, len 9276, room 4 
+tail 8
+chksum 0xba
+csum 0xba
+Œâœî’p‚ŒóLþ
+ready
+WIFI DISCONNECT
+WIFI CONNECTED
+WIFI GOT IP
+AT+CIFSR
++CIFSR:STAIP,"192.168.137.250"
++CIFSR:STAMAC,"ec:fa:bc:64:72:7d"
+
+OK
+AT+CIPSERVER=1,80
+
+ERROR
+AT+CIPMUX=1
+
+OK
+AT+CIPSERVER=1,80
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,285
+
+OK
+> 
+Recv 285 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,126
+
+OK
+> 
+Recv 126 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+S
+
+ERROR
+AT+CIPSEND=0,3
+
+OK
+> 
+Recv 3 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+Testat+cipsend=0,130
+
+ERROR
+AT+CIPSEND=0,130
+
+OK
+> 
+Recv 130 bytes
+
+SEND OK
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+0,CONNECT
+
++IPD,0,408:POST / HTTP/1.1
+Host: 192.168.137.250
+Connection: keep-alive
+Content-Length: 4
+Origin: http://localhost:5000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+DNT: 1
+Content-Type: text/plain;charset=UTF-8
+Accept: */*
+Referer: http://localhost:5000/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+
+TestAT+CIPSEND=0,169
+
+OK
+> 
+Recv 169 bytes
+
+SEND OK
+AT+CIPSE
+
+ERROR
+AT+CLOSE
+
+ERROR
+AT+CIPCLOSE=0
+0,CLOSED
+
+OK
+
+ ets Jan  8 2013,rst cause:4, boot mode:(3,6)
+
+wdt reset
+load 0x40100000, len 27728, room 16 
+tail 0
+chksum 0x2a
+load 0x3ffe8000, len 2124, room 8 
+tail 4
+chksum 0x07
+load 0x3ffe8850, len 9276, room 4 
+tail 8
+chksum 0xba
+csum 0xba
+
+ ets Jan  8 2013,rst cause:4, boot mode:(3,6)
+
+wdt reset
