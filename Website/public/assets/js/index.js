@@ -136,14 +136,16 @@ $(document).ready(function(){
 
     $("#loopsend").click(function () {
         var body = "";
+        var x = 0;
         for (var i = 1; i <= 5; i++) {
             var cmd = $("#select"+i).val();
             var tim = $("#num"+i).val() != "" ? $("#num"+i).val() : 1;
             if (cmd != "NOTHING") {
                 body += cmd + " " + tim + "\n";
+                x++;
             }
         }
-        send(body);
+        send("LOOP_" + x + "_" + body);
     })
 });
 

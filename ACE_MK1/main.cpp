@@ -10,6 +10,8 @@ Motor B(D12, D14, D15, 1); //right
 Serial pc(USBTX, USBRX);
 Serial wifi(PE_8,PE_7);
 Timer t;
+Timeout ts[5];
+DigitalIn first(D0), second(D1);
 
 string ip_addr = "";
 const string ace_break = "ACE-Break__";
@@ -22,6 +24,10 @@ void right();
 void stop();
 void waits(float x) {wait_us(x*1000000);};
 
+void l_print(string s) {
+    if (s.length() >= 16) {s = s.substr(0,15) + "\0";}
+    lcd.printf("%s", s.c_str());
+}
 string trim(string s);
 string wifi_send(string cmd, bool lon = false);
 bool wifi_send_test(string cmd, string test, bool lon = false);
@@ -88,7 +94,14 @@ int main()
                         res_data = data_set("Stopping", "Stopping");
                     } else if (data.substr(0,4) == "LCD_") {
                         res_data = data_set(data.substr(4), "Writing to LCD", "Written to LCD");
+                    } else if (data.substr(0,5) == "LOOP_") {
+                        stop();
+                        for (int i = 0; i < data.at(5) - '0'; i++) {
+                            
+                        }
+                        res_data = data_set(data.substr(4), "Performing loop", "Performing Loop");
                     } else {
+                        stop();
                         res_data = data_set("DATA Error", "Error");
                     }
 
@@ -105,11 +118,19 @@ int main()
 	
 }
 
+void transfer(string code) {
+    if (code == "FWD") {fwd();}
+    else if (code == "REV") {rev();}
+    else if (code == "LFT") {left();}
+    else if (code == "RGT") {right();}
+    else if (code == "STP") {stop();}
+}
+
 string data_set(string lcd_data, string pc_data, string res_data) {
     res_data = res_data == "" ? pc_data : res_data;
     pc.printf("%s\n", pc_data.c_str());
     lcd.cls();
-    lcd.printf("%s", lcd_data.c_str());
+    l_print(lcd_data);
     return res_data;
 }
 
@@ -134,12 +155,12 @@ string wifi_send(string cmd, bool lon) {
     wifi.putc('\r');
     wifi.putc('\n');
     //bool running = true;
-    float timeout = lon ? 15000 : 200;
+    float timeout = lon ? 15000 : 500;
     t.start();
     float time = t.read_ms();
     while(time + timeout > t.read_ms()){
-        while (wifi.readable()) {
-            res += wifi.getc();
+        if (wifi.readable()) {
+            res+=wifi.getc();
         }
     }
     t.stop();
@@ -155,24 +176,99 @@ bool wifi_setup() {
     if (wifi_send_test("AT", "OK")) {
         lcd.cls();
         lcd.printf("Wi-Fi Working");
-				Thread::wait(2000);
+		Thread::wait(2000);
         wifi_send("AT+CWMODE=1");
-        string addr = wifi_send("AT+CIFSR");
-        if (addr.find("0.0.0.0") != string::npos) {
-            lcd.cls();
-            lcd.printf("Connecting...");
-            bool all_ok = wifi_send_test("AT+CWJAP=\"Test-ACE\",\"test-pass\"", "OK", true);
-            if (!all_ok){lcd.cls();lcd.printf("CNCTION Error");return false;}
-            addr = wifi_send("AT+CIFSR");
+
+        lcd.cls();
+        lcd.printf("Connecting...");
+        string res = ""; t.start();
+        float time = t.read_ms();
+        while(time + 1000 > t.read_ms()){
+            while (wifi.readable()) {
+                res += wifi.getc();
+            }
         }
-        addr = addr.substr(addr.find_first_of("\"")+1);
-        ip_addr = addr.substr(0,addr.find_first_of("\""));
+        t.stop();
+        pc.printf("%s", res.c_str());
+        string addr = "";
+        if (res.find("+CIFSR:") != string::npos) {
+            addr = res;
+        } else {
+            addr = wifi_send("AT+CIFSR");
+            if (addr.find("0.0.0.0") != string::npos) {
+                bool all_ok = wifi_send_test("AT+CWJAP=\"PN8V6\",\"HJTSF3JYJ945YLRC\"", "OK", true);
+                if (!all_ok){lcd.cls();lcd.printf("CNCTION Error");return false;}
+                addr = wifi_send("AT+CIFSR");
+            }
+            //connection switch code
+            /*if (addr.find("0.0.0.0") != string::npos) {
+                string ssids[50];
+                string ecns[50];
+                string wifis = wifi_send("AT+CWLAP", true);
+                string line = ""; char count = 0;
+                while (wifis.find("(") != string::npos) {
+                    wifis = wifis.substr(wifis.find("("));
+                    ecns[count] = wifis.at(1);
+                    wifis = wifis.substr(wifis.find("\"")+1);
+                    ssids[count] = wifis.substr(0,wifis.find("\""));
+                    count++;
+                }
+                pc.printf("%s",ecns[0].c_str());
+                lcd.cls();
+                lcd.locate(0, 1);
+                lcd.printf("Connect");
+                lcd.locate(0, 0);
+                char current = 0;
+                while (ecns[current].at(0)-0x30==5) {current++;}
+                
+                        
+                        l_print(ssids[current]);
+                
+                while (1) {
+                    if (!first) {
+                        pc.printf("reahced");
+                        current++;
+                        while (ecns[current].at(0)-0x30==5) {current = current == count? 0:current+1;};
+                                lcd.cls();
+                                lcd.locate(0, 0);
+                                l_print(ssids[current]);
+                                lcd.locate(0, 1);
+                                l_print("Connect");
+                              
+                        Thread::wait(300);
+                        while(!first);
+                    }
+                    if (!second) {
+                        if (ecns[current].at(0)-0x30==0) {
+                            lcd.cls(); lcd.printf("Connecting...");
+                            bool all_ok = wifi_send_test("AT+CWJAP=\""+ssids[current]+"\"", "OK", true);
+                            if (!all_ok){lcd.cls();lcd.printf("CNCTION Error");return false;}
+                            addr = wifi_send("AT+CIFSR");
+                            break;
+                        } else {
+                            lcd.cls();
+                            lcd.printf("Need BT for password");
+                            Thread::wait(1000);
+                            lcd.cls();
+                            lcd.locate(0, 1);
+                            lcd.printf("Connect");
+                            lcd.locate(0, 0);
+                            lcd.printf("%s", ssids[current].c_str());
+                        }
+                    }
+                }
+                
+            }*/
+        }
+        
+        addr = addr.substr(addr.find("\"")+1);
+        ip_addr = addr.substr(0,addr.find("\""));
         lcd.cls();
         lcd.printf("Connected");
         Thread::wait(2000);
         wifi_send("AT+CIPMUX=1");
-        bool all_ok = wifi_send_test("AT+CIPSERVER=1,80","OK");
-        if (!all_ok){lcd.cls();lcd.printf("SERVER Error");return false;}
+        bool all_ok2 = wifi_send_test("AT+CIPSERVER=1,80","OK");
+        if (!all_ok2){lcd.cls();lcd.printf("SERVER Error");return false;}
         lcd.cls();
         lcd.printf("%s", ip_addr.c_str());
         lcd.locate(0, 1);
