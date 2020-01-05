@@ -141,7 +141,7 @@ $(document).ready(function(){
             var cmd = $("#select"+i).val();
             var tim = $("#num"+i).val() != "" ? $("#num"+i).val() : 1;
             if (cmd != "NOTHING") {
-                body += cmd + " " + tim + "\n";
+                body += "" + cmd + tim + "_";
                 x++;
             }
         }
