@@ -13,7 +13,9 @@ extern DigitalOut B_FWD;
 extern DigitalOut B_REV; //left, right, rear
 extern Serial pc;
 extern Serial wifi;
-extern Timer t;
+extern Serial bt;
+extern Timer wifi_timer;
+extern Timer bt_timer;
 extern DigitalOut err_led;
 extern DigitalOut init_led;
 extern DigitalOut ok_led; //red, blue, yellow
@@ -26,9 +28,9 @@ extern volatile bool stop_thread;
 extern Thread motor_thread;
 extern Ticker green;
 
-extern void l_print(string s);
+extern string ltrim(string s);
+extern string rtrim(string s);
 extern string trim(string s);
-extern string data_set(string lcd_data, string pc_data, string res_data = "");
 extern void tick();
 
 #endif

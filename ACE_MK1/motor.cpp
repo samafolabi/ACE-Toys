@@ -36,7 +36,7 @@ void motor_loop(string* pattern) {
                 }
                 stop_lock.unlock();
             }
-            t.stop();
+            timer.stop();
         }
         counter = 0;
     }

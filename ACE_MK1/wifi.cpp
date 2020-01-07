@@ -8,15 +8,15 @@ string wifi_send(string cmd, bool lon) {
     wifi.putc('\r');
     wifi.putc('\n');
     float timeout = lon ? 15000 : 500;
-    t.start();
-    float time = t.read_ms();
-    while(time + timeout > t.read_ms()){
+    wifi_timer.start();
+    float time = wifi_timer.read_ms();
+    while(time + timeout > wifi_timer.read_ms()){
         if (wifi.readable()) {
             res+=wifi.getc();
         }
     }
-    t.stop();
-    pc.printf("%s\n",res.c_str());
+    wifi_timer.stop();
+    //pc.printf("%s\n",res.c_str());
     return res;
 }
 
@@ -34,14 +34,14 @@ bool wifi_setup() {
 
         //lcd.cls();
         pc.printf("Connecting...");
-        string res = ""; t.start();
-        float time = t.read_ms();
-        while(time + 3000 > t.read_ms()){
+        string res = ""; wifi_timer.start();
+        float time = wifi_timer.read_ms();
+        while(time + 3000 > wifi_timer.read_ms()){
             while (wifi.readable()) {
                 res += wifi.getc();
             }
         }
-        t.stop();
+        wifi_timer.stop();
         //pc.printf("%s", res.c_str());
         string addr = "";
         if (res.find("+CIFSR:") != string::npos) {
@@ -149,12 +149,12 @@ bool wifi_setup() {
 
 string read_wifi() {
     string res = "";
-    t.start();
-    float time = t.read_ms();
-    while(time + 500 > t.read_ms()){
+    wifi_timer.start();
+    float time = wifi_timer.read_ms();
+    while(time + 500 > wifi_timer.read_ms()){
         while (wifi.readable()){
         res += wifi.getc();}
     }
-    t.stop();
+    wifi_timer.stop();
     return res;
 }

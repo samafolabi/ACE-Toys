@@ -9,11 +9,25 @@
     <!--<link rel="icon" type="image/png" href="img/favicon.png" />-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    </head>
+
+    <style>
+    #terminal div {
+    color: gray;
+}
+
+#terminal div.out {
+    color: red;
+}
+
+#terminal div.in {
+    color: blue;
+}
+    </style>
+  </head>
 
 <body>
     
-    <div id="blockly" style="height: 480px; width: 600px;"></div>
+    <!--<div id="blockly" style="height: 480px; width: 600px;"></div>
 
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
         <category name="Necessary">
@@ -239,16 +253,14 @@
 <div style="float: right;">
       <textarea id="textarea"></textarea>
       <button id="update">Update</button>
-      </div>
+      </div>-->
     <main>
-        <!-- Response from Buggy -->
-        <p>
-            <strong>Response: </strong>
-            <span id="response">No Connection</span>
-        </p>
+      <section>
+        <h1 id="operation">Bluetooth</h1>
+        <button onclick="switch_operation();">Switch</button>
         <!-- Test Connection to Buggy -->
-        <input id="ip" />
-        <button onclick="set_ip();send('Test');">Connect</button>
+        <input id="ip" style="display: none;" />
+        <button onclick="connect()">Connect</button>
         <!-- One off movement commands -->
         <div>
             <button onclick="send('FWD')">FWD</button>
@@ -256,11 +268,6 @@
             <button onclick="send('LFT')">LFT</button>
             <button onclick="send('RGT')">RGT</button>
             <button onclick="send('STP')">STP</button>
-        </div>
-        <!-- Send string to the LCD -->
-        <div>
-            <input maxlength="16" id="lcd" placeholder="LCD Printout" />
-            <button id="lcdsend">Send</button>
         </div>
         <!-- 5 command loop to the buggy -->
         <table id="table">
@@ -270,16 +277,20 @@
             </tr>
             <!-- Generates the elements in JS -->
         </table>
-        <button id="loopsend">Send</button>
+        <button onclick="loopsend()">Send</button>
+      </section>
+      <div style="float: right;" id="terminal"></div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="assets/blockly/blockly_compressed.js"></script>
+    <!--<script src="assets/blockly/blockly_compressed.js"></script>
     <script src="assets/blockly/blocks_compressed.js"></script>
     <script src="assets/blockly/javascript_compressed.js"></script>
     <script src="assets/blockly/msg/js/en-gb.js"></script>
+    <script src="assets/js/blockly_index.js"></script>-->s
+    <script src="assets/js/bluetooth.js"></script>
     <script src="assets/js/index.js"></script>
 </body>
 
