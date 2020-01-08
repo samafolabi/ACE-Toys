@@ -255,11 +255,17 @@
       <button id="update">Update</button>
       </div>-->
     <main>
-      <section>
+      <section style="float: left; width: 50%;">
         <h1 id="operation">Bluetooth</h1>
-        <button onclick="switch_operation();">Switch</button>
+        <button id="switch_button" style="display: none;" onclick="switch_operation();">Switch</button>
+        <button id="list_button" style="display: none;" onclick="send('CONNECT_LIST');">List Wi-Fi APs</button>
+        <button id="check_button" onclick="send('CHECK_WIFI');">Check Wi-Fi Availability</button>
         <!-- Test Connection to Buggy -->
-        <input id="ip" style="display: none;" />
+        <p id="ip"></p>
+        <select id="wifi_list" style="display: none;">
+        </select>
+        <input id="pass" style="display: none;"/>
+        <button style="display: none;" id="attempt_button" onclick="attempt_connect()">Attempt Connect</button style="display: none;">
         <button onclick="connect()">Connect</button>
         <!-- One off movement commands -->
         <div>
@@ -279,7 +285,7 @@
         </table>
         <button onclick="loopsend()">Send</button>
       </section>
-      <div style="float: right;" id="terminal"></div>
+      <div style="float: right; width:50%;" id="terminal"></div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -289,7 +295,7 @@
     <script src="assets/blockly/blocks_compressed.js"></script>
     <script src="assets/blockly/javascript_compressed.js"></script>
     <script src="assets/blockly/msg/js/en-gb.js"></script>
-    <script src="assets/js/blockly_index.js"></script>-->s
+    <script src="assets/js/blockly_index.js"></script>-->
     <script src="assets/js/bluetooth.js"></script>
     <script src="assets/js/index.js"></script>
 </body>

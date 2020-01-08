@@ -96,6 +96,7 @@ function disconnect() {
         log('"' + deviceCache.name +
             '" bluetooth device is already disconnected');
       }
+      bt_connected = false;
     }
   // Added condition
   if (characteristicCache) {
@@ -111,22 +112,24 @@ let readBuffer = '';
 
 // Data receiving
 function handleCharacteristicValueChanged(event) {
-    let value = new TextDecoder().decode(event.target.value);
-  
-    for (let c of value) {
-      if (c === '\n') {
-        let data = readBuffer.trim();
-        readBuffer = '';
-  
-        if (data) {
-          receive(data);
-        }
-      }
-      else {
-        readBuffer += c;
+    let value = event.target.value;//new TextDecoder().decode(event.target.value);
+  //receive(value);
+  for (let i = 0; i < value.byteLength; i++) {
+    var c = (String.fromCharCode(parseInt('0x' + ('00' + value.getUint8(i).toString(16)).slice(-2))));
+    if (c === '\n') {
+      let data = readBuffer.trim();
+      readBuffer = '';
+
+      if (data) {
+        receive(data);
       }
     }
+    else {
+      readBuffer += c;
+    }
   }
+    
+ }
   
   // Received data handling
   function receive(data) {
@@ -158,7 +161,7 @@ function bt_send(data, log_data = '') {
   }
 
   log(log_data == '' ? data : log_data, 'out');
-
+//log(log_data, 'out');
   }
 
   function writeToCharacteristic(characteristic, data) {

@@ -11,7 +11,7 @@ extern string ip_addr;
 
 extern string wifi_send(string cmd, bool lon = false);
 extern bool wifi_send_test(string cmd, string test, bool lon = false);
-extern bool wifi_setup();
+extern int wifi_setup();
 extern string read_wifi();
 
 

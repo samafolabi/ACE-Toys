@@ -34,19 +34,18 @@ function connect() {
     if (operation) {
       /*var addr = cde.substr(cde.indexOf("ip_addr = '")+11);
       addr = addr.substr(0,addr.indexOf("'"));*/
-      if (ip == "") {
+      /*if (ip == "") {
         if ($("#ip").val() == "") {
           log("Need to set IP Address, since not already set");
           return;
         } else {
           ip = $("#ip").val();
         }
-      }
+      }*/
       log("Connecting to " + ip);
       send("Test");
     } else {
       bt_connect();
-      //deal with wifi and bt responses, and bt error response, and disconnections
     }
 }
 
@@ -78,11 +77,54 @@ function send(cmd) {
     } else {alert("Not Connected yet");}
 }
 
+var ecns = [];
+var wifis = [];
+
+function attempt_connect() {
+  var index = document.getElementById("wifi_list").selectedIndex;
+  if (ecns[index] == 0 || $("#pass").val() != "") {
+    send("WIFI_CONNECT_"+ecns[index]+wifis[index]+";"+$("#pass").val());
+  } else {alert("Please enter password");}
+}
+
 function decipher_response(response) {
   if (response.indexOf("Connected to Wi-Fi") != -1) {
     wifi_connected = true;
   } else if (response.indexOf("Connected to BT") != -1) {
     bt_connected = true;
+  } else if (response.indexOf("Error_Check") != -1) {
+    $("#check_button").hide();
+    response = "Wifi not available at this time";
+  } else if (response.indexOf("IP_GIVEN_") != -1) {
+    $("#check_button").hide();
+    $("#list_button").hide();
+    $("#switch_button").show();
+    
+    $("#wifi_list").hide();
+    $("#pass").hide();
+    $("#attempt_button").hide();
+    ip = response.substr(9);
+    response = "IP address is " + ip;
+  } else if (response.indexOf("ConnectionNeeded_Check") != -1) {
+    $("#check_button").hide();
+    $("#list_button").show();
+    ip = response.substr(9);
+    response = "Buggy needs to connect to wifi";
+  } else if (response.indexOf("JSON:") != -1) {
+    $("#list_button").hide();
+    var obj = JSON.parse(response.substr(5));
+    var wi_list = obj.wifis;
+    for (var i = 0; i < wi_list.length; i++) {
+      ecns.push(wi_list[i].charAt(0));
+      wifis.push(wi_list[i].substr(1));
+      $("#wifi_list").append("<option>" + wi_list[i].substr(1) +"</option>");
+    }
+    $("#wifi_list").show();
+    $("#pass").show();
+    $("#attempt_button").show();
+    response = "List of available access points";
+  } else if (response.indexOf("Error_Connecting") != -1) {
+    response = "Unable to Connect";
   }
   log(response, 'in');
 }
