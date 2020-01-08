@@ -23,10 +23,6 @@ extern DigitalOut C;
 extern DigitalOut D; //left2, right2
 extern BusOut leds;
 extern Mutex motor_lock;
-extern Mutex stop_lock;
-extern Mutex pc_lock;
-extern volatile bool stop_thread;
-extern Thread motor_thread;
 extern Ticker green;
 
 extern string ltrim(string s);

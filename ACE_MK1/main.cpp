@@ -13,8 +13,15 @@ string check_wifi();
 string list_wifi();
 string connect_wifi(string wifi_data);
 string patt;
-void loopy(string pattern);
-void leddy(string pattern);
+void loopy();
+void leddy();
+volatile bool mthread_running = false, lthread_running = false;
+Thread m_thread, l_thread;
+Mutex m_lock;
+string motor_pattern = "", led_pattern = "";
+
+#define MOTOR 1
+#define LED 2
 
 int main()
 {
@@ -22,20 +29,19 @@ int main()
     pc.baud(115200);
     bt.baud(9600);
 
-    pc.puts("Initialising");
+    //pc.puts("Initialising");
     stop();
 
-    
+    m_thread.start(loopy);
+    l_thread.start(leddy);
 
 	while(1)
 	{
         if(bt.readable()) {
             string data = read_bt();
-            pc.printf("%s\n", data.c_str());
+            //pc.printf("%s\n", data.c_str());
             string res = data_decipher(data);
             bt.printf("%s\n",res.c_str());
-            if (res == "Performing Motor Loop") {loopy(patt);}
-            else if (res== "Performing LED Loop") {leddy(patt);}
         }
         if (!wifi_error && !needs_connecting && wifi.readable()) {
             string res = read_wifi();
@@ -43,12 +49,12 @@ int main()
             size_t check = res.find("POST / HTTP/1.1");
             if (check == string::npos)
                 {
-                    pc.printf("%s\n---\n", res.c_str());
+                    //pc.printf("%s\n---\n", res.c_str());
                 }
             if (check != string::npos) {
                 size_t d = res.find(ace_break) + ace_break_length + 1; //new line as well
                 string data = trim(res.substr(d));
-                pc.printf("%s\n", data.c_str());
+                //pc.printf("%s\n", data.c_str());
 
                 string response = "HTTP/1.1 200 OK\nAccess-Control-Allow-Origin : *\nContent-Type: text/plain\nContent-Length: ";
 
@@ -104,21 +110,21 @@ string check_wifi() {
     switch(wifi_active){
         case 0:
             ok_led = 1;
-            pc.printf("Wi-Fi is ready\n");
+            //pc.printf("Wi-Fi is ready\n");
             needs_connecting = false;
             return_data = "IP_GIVEN_";
             return_data += ip_addr;
             break;
         case 1:
             init_led = 1;
-            pc.printf("Can't connect to wi-fi\n");
+            //pc.printf("Can't connect to wi-fi\n");
             return_data = "ConnectionNeeded_Check";
             break;
         case 2:
         case -1:
         default:
             err_led = 1;
-            pc.printf("ERRORRRRR!\n");
+            //pc.printf("ERRORRRRR!\n");
             wifi_error = true;
             return_data = "Error_Check";
             break;
@@ -133,7 +139,7 @@ string connect_wifi(string wifi_data) {
     cmd += "\",\"";
     cmd += wifi_data.at(0)-0x30 > 0 ? wifi_data.substr(wifi_data.find(";")+1) : "";
     cmd += "\"";
-    pc.printf("%s\n", cmd.c_str());
+    //pc.printf("%s\n", cmd.c_str());
     bool all_ok = wifi_send_test(cmd, "OK", true);
     green.detach();
     if (!all_ok) {
@@ -145,12 +151,12 @@ string connect_wifi(string wifi_data) {
         ip_addr = addr.substr(0,addr.find("\""));
         wifi_send("AT+CIPMUX=1");
         bool all_ok2 = wifi_send_test("AT+CIPSERVER=1,80","OK");
-        if (!all_ok2){pc.printf("SERVER Error");
+        if (!all_ok2){//pc.printf("SERVER Error");
             err_led = 1;
             return "Error_Connecting";
         }
         ok_led = 1;
-        pc.printf("Wi-Fi is ready\n");
+        //pc.printf("Wi-Fi is ready\n");
         needs_connecting = false;
         string retu = "IP_GIVEN_";
         retu += ip_addr;
@@ -199,19 +205,26 @@ string data_decipher(string data) {
         }
         res_data = "Moving Right";
     } else if (data == "STP") {
+        if (mthread_running) {
+            mthread_running = false;
+        }
         stop();
         res_data = "Stopping";
         last_movement = "";
     } else if (data.substr(0,5) == "LOOP_") {
+        if (mthread_running) {
+            mthread_running = false;
+        }
         stop();
-        string pattern = data.substr(5);
-        patt = pattern;
-        //stop_thread = false;
-        //motor_thread.start(callback(motor_loop, &pattern));
+        motor_pattern = data.substr(5);
+        m_thread.flags_set(MOTOR);
         res_data = "Performing Motor Loop";
     } else if (data.substr(0,4) == "LED_") {
-        string pattern = data.substr(4);
-        patt = pattern;
+        if (lthread_running) {
+            lthread_running = false;
+        }
+        led_pattern = data.substr(4);
+        l_thread.flags_set(LED);
         res_data = "Performing LED Loop";
     } else {
         stop();
@@ -219,47 +232,57 @@ string data_decipher(string data) {
         ok_led = 0;
         err_led = 1;
     }
-    pc.printf("%s\n", res_data.c_str());
+    //pc.printf("%s\n", res_data.c_str());
     return res_data;
 }
 
-void loopy (string pattern) {
-    char num = pattern.at(0) - 0x30;
-    pc.printf("%d\n", num);
+void loopy () {while(1){
+    ThisThread::flags_wait_all(MOTOR);
+    mthread_running = true;
+    string pattern = motor_pattern;
+    char num = motor_pattern.at(0) - 0x30;
+    //pc.printf("%d\n", num);
     string cde[num];
     char sec[num];
     pattern = pattern.substr(2);
-    pc.printf("%s\n", pattern.c_str());
+    //pc.printf("%s\n", pattern.c_str());
     for (int i = 0; i < num; i++) {
         cde[i] = pattern.substr(0,3);
         sec[i] = pattern.at(3) - 0x30;
         if(i < num-1) pattern = pattern.substr(5);
-        pc.printf("%s %d %s\n", pattern.c_str(), sec[i], cde[i].c_str());
+        //pc.printf("%s %d %s\n", pattern.c_str(), sec[i], cde[i].c_str());
     }
     while(1) {
         for (int i = 0; i < num; i++) {
             stop();
             transfer(cde[i]);
+            if (!mthread_running) break;
             ThisThread::sleep_for(sec[i]*1000);
         }
-    }
+        if (!mthread_running) break;
+    }}
 }
 
-void leddy (string pattern) {
+void leddy () {while(1){
+    ThisThread::flags_wait_all(LED);
+    lthread_running = true;
+    string pattern = led_pattern;
     char num = 3;
     char led_out[num];
     char sec[num];
-    pc.printf("%s\n", pattern.c_str());
+    //pc.printf("%s\n", pattern.c_str());
     for (int i = 0; i < num; i++) {
         led_out[i] = ((pattern.at(0)-0x30)<<2) + ((pattern.at(1)-0x30)<<1) + ((pattern.at(2)-0x30)<<0);
         sec[i] = pattern.at(3) - 0x30;
         if(i < num-1) pattern = pattern.substr(5);
-        pc.printf("%s %d %x\n", pattern.c_str(), sec[i], led_out[i]);
+        //pc.printf("%s %d %x\n", pattern.c_str(), sec[i], led_out[i]);
     }
     while(1) {
         for (int i = 0; i < num; i++) {
             leds = led_out[i];
+            if (!lthread_running) break;
             ThisThread::sleep_for(sec[i]*1000);
         }
-    }
+        if (!lthread_running) break;
+    }}
 }

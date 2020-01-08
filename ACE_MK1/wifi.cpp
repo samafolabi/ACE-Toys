@@ -29,12 +29,12 @@ int wifi_setup() {
     ThisThread::sleep_for(1000);
     if (wifi_send_test("AT", "OK")) {
         //lcd.cls();
-        pc.printf("Wi-Fi Working");
+        //pc.printf("Wi-Fi Working");
 		ThisThread::sleep_for(2000);
         wifi_send("AT+CWMODE=1");
 
         //lcd.cls();
-        pc.printf("Connecting...");
+        //pc.printf("Connecting...");
         string res = ""; wifi_timer.start();
         float time = wifi_timer.read_ms();
         while(time + 3000 > wifi_timer.read_ms()){
@@ -52,7 +52,7 @@ int wifi_setup() {
             if (addr.find("0.0.0.0") != string::npos) {
                 //bool all_ok = wifi_send_test("AT+CWJAP=\"PN8V6\",\"HJTSF3JYJ945YLRC\"", "OK", true);
                 //if (!all_ok){/*lcd.cls();*/
-                pc.printf("CNCTION Error");
+                //pc.printf("CNCTION Error");
                 return 1;
                 //}
                 //addr = wifi_send("AT+CIFSR");
@@ -62,21 +62,21 @@ int wifi_setup() {
         addr = addr.substr(addr.find("\"")+1);
         ip_addr = addr.substr(0,addr.find("\""));
         //lcd.cls();
-        pc.printf("Connected");
+        //pc.printf("Connected");
         ThisThread::sleep_for(2000);
         wifi_send("AT+CIPMUX=1");
         bool all_ok2 = wifi_send_test("AT+CIPSERVER=1,80","OK");
-        if (!all_ok2){/*lcd.cls();*/pc.printf("SERVER Error");
+        if (!all_ok2){/*lcd.cls();*///pc.printf("SERVER Error");
         
         return 2;
         }
         //lcd.cls();
-        pc.printf("%s", ip_addr.c_str());
+        //pc.printf("%s", ip_addr.c_str());
         //lcd.locate(0, 1);
-        pc.printf("Ready to CNCT");
+        //pc.printf("Ready to CNCT");
     } else {
         //lcd.cls();
-        pc.printf("MODULE Error");
+        //pc.printf("MODULE Error");
         return -1;
     }
     return 0;
