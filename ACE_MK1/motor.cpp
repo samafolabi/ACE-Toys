@@ -1,6 +1,6 @@
 #include "motor.h"
 
-void transfer(string code, bool thread_stop = false) {
+void transfer(string code, bool thread_stop) {
     if (code == "FWD") {fwd();}
     else if (code == "REV") {rev();}
     else if (code == "LFT") {left();}

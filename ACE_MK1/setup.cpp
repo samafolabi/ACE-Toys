@@ -6,6 +6,7 @@ Serial wifi(PE_8,PE_7);
 Serial bt(PC_6, PC_7);
 Timer wifi_timer, bt_timer;
 DigitalOut err_led(LED3), init_led(LED2), ok_led(LED1);
+BusOut leds(D5,D6,D7);
 DigitalOut C(D12), D(D13); //left2, right2
 Mutex motor_lock, stop_lock, pc_lock;
 volatile bool stop_thread = true;

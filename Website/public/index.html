@@ -284,6 +284,18 @@
             <!-- Generates the elements in JS -->
         </table>
         <button onclick="loopsend()">Send</button>
+
+        <table id="ledtable">
+          <tr>
+              <th>RED</th>
+              <th>GREEN</th>
+              <th>YELLOW</th>
+              <th>Time (in seconds)</th>
+          </tr>
+          <!-- Generates the elements in JS -->
+      </table>
+      <button onclick="ledsend()">Send</button>
+      <button onclick="send('SOUND_TWINKLE')">Twinkle Twinkle</button>
       </section>
       <div style="float: right; width:50%;" id="terminal"></div>
     </main>

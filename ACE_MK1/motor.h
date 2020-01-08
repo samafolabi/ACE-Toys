@@ -4,6 +4,7 @@
 #include "mbed.h"
 #include "setup.h"
 
+extern void transfer(string code, bool thread_stop = false);
 extern void fwd();
 extern void rev();
 extern void left();

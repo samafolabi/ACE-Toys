@@ -21,6 +21,7 @@ extern DigitalOut init_led;
 extern DigitalOut ok_led; //red, blue, yellow
 extern DigitalOut C;
 extern DigitalOut D; //left2, right2
+extern BusOut leds;
 extern Mutex motor_lock;
 extern Mutex stop_lock;
 extern Mutex pc_lock;

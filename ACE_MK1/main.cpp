@@ -12,6 +12,9 @@ bool wifi_error = false, needs_connecting = true;
 string check_wifi();
 string list_wifi();
 string connect_wifi(string wifi_data);
+string patt;
+void loopy(string pattern);
+void leddy(string pattern);
 
 int main()
 {
@@ -31,6 +34,8 @@ int main()
             pc.printf("%s\n", data.c_str());
             string res = data_decipher(data);
             bt.printf("%s\n",res.c_str());
+            if (res == "Performing Motor Loop") {loopy(patt);}
+            else if (res== "Performing LED Loop") {leddy(patt);}
         }
         if (!wifi_error && !needs_connecting && wifi.readable()) {
             string res = read_wifi();
@@ -200,9 +205,14 @@ string data_decipher(string data) {
     } else if (data.substr(0,5) == "LOOP_") {
         stop();
         string pattern = data.substr(5);
-        stop_thread = false;
-        motor_thread.start(callback(motor_loop, &pattern));
-        res_data = "Performing Loop";
+        patt = pattern;
+        //stop_thread = false;
+        //motor_thread.start(callback(motor_loop, &pattern));
+        res_data = "Performing Motor Loop";
+    } else if (data.substr(0,4) == "LED_") {
+        string pattern = data.substr(4);
+        patt = pattern;
+        res_data = "Performing LED Loop";
     } else {
         stop();
         res_data = "Error";
@@ -213,6 +223,43 @@ string data_decipher(string data) {
     return res_data;
 }
 
+void loopy (string pattern) {
+    char num = pattern.at(0) - 0x30;
+    pc.printf("%d\n", num);
+    string cde[num];
+    char sec[num];
+    pattern = pattern.substr(2);
+    pc.printf("%s\n", pattern.c_str());
+    for (int i = 0; i < num; i++) {
+        cde[i] = pattern.substr(0,3);
+        sec[i] = pattern.at(3) - 0x30;
+        if(i < num-1) pattern = pattern.substr(5);
+        pc.printf("%s %d %s\n", pattern.c_str(), sec[i], cde[i].c_str());
+    }
+    while(1) {
+        for (int i = 0; i < num; i++) {
+            stop();
+            transfer(cde[i]);
+            ThisThread::sleep_for(sec[i]*1000);
+        }
+    }
+}
 
-
-
+void leddy (string pattern) {
+    char num = 3;
+    char led_out[num];
+    char sec[num];
+    pc.printf("%s\n", pattern.c_str());
+    for (int i = 0; i < num; i++) {
+        led_out[i] = ((pattern.at(0)-0x30)<<2) + ((pattern.at(1)-0x30)<<1) + ((pattern.at(2)-0x30)<<0);
+        sec[i] = pattern.at(3) - 0x30;
+        if(i < num-1) pattern = pattern.substr(5);
+        pc.printf("%s %d %x\n", pattern.c_str(), sec[i], led_out[i]);
+    }
+    while(1) {
+        for (int i = 0; i < num; i++) {
+            leds = led_out[i];
+            ThisThread::sleep_for(sec[i]*1000);
+        }
+    }
+}

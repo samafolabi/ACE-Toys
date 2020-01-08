@@ -7,23 +7,43 @@ $(document).ready(function(){
             "<option>LFT</option>" +
             "<option>RGT</option>" +
             "<option>STP</option>" +
-        "</select></td><td><input id='num"+i+"' type='number' /></td></tr>");
+        "</select></td><td><input id='num"+i+"' type='number' min='1' max='9' /></td></tr>");
     }
 
-    $("#loopsend").click(function () {
-        var body = "";
-        var x = 0;
-        for (var i = 1; i <= 5; i++) {
-            var cmd = $("#select"+i).val();
-            var tim = $("#num"+i).val() != "" ? $("#num"+i).val() : 1;
-            if (cmd != "NOTHING") {
-                body += "" + cmd + tim + "_";
-                x++;
-            }
-        }
-        send("LOOP_" + x + "_" + body);
-    })
+    for (var i = 1; i <= 3; i++) {
+      $("#ledtable").append("<tr><td><input type='checkbox' id='red"+i+"'></td>"+
+      "<td><input type='checkbox' id='green"+i+"'></td><td><input type='checkbox' id='yellow"+i+"'></td>"+
+      "<td><input id='lednum"+i+"' type='number' min='1' max='9' /></td></tr>");
+  }
+
+    
 });
+
+function ledsend() {
+  var body = "";
+  for (var i = 1; i <= 3; i++) {
+      var red = document.getElementById("red"+i).checked ? 1 : 0;
+      var green = document.getElementById("green"+i).checked ? 1 : 0;
+      var yellow = document.getElementById("yellow"+i).checked ? 1 : 0;
+      var tim = $("#lednum"+i).val() != "" ? $("#lednum"+i).val() : 1;
+      body += "" + red + green + yellow + tim + "_";
+  }
+  send("LED_" + body);
+}
+
+function loopsend() {
+  var body = "";
+  var x = 0;
+  for (var i = 1; i <= 5; i++) {
+      var cmd = $("#select"+i).val();
+      var tim = $("#num"+i).val() != "" ? $("#num"+i).val() : 1;
+      if (cmd != "NOTHING") {
+          body += "" + cmd + tim + "_";
+          x++;
+      }
+  }
+  send("LOOP_" + x + "_" + body);
+}
 
 var wifi_connected = false,
     bt_connected = false;
